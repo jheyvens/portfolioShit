@@ -4,8 +4,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Jheyvens — Senior Graphic Artist</title>
-<meta name="description" content="Senior graphic artist for brand identity, campaign art and packaging. Available for senior and lead roles.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%202000%202000%22%3E%3Crect%20width%3D%222000%22%20height%3D%222000%22%20rx%3D%22380%22%20fill%3D%22%23121212%22/%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20gradientUnits%3D%22userSpaceOnUse%22%20x1%3D%22349%22%20y1%3D%22495%22%20x2%3D%221651%22%20y2%3D%221503%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%234AB9FF%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232CDFFF%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg%20fill%3D%22url%28%23g%29%22%3E%3Cpath%20d%3D%22M349%20495L1000%20975L1651%20495L1651%20673L1000%201155L499%20782L499%201503L349%201401Z%22/%3E%3Cpath%20d%3D%22M642%201061L1000%201323L1651%20833L1651%201009L1000%201503L642%201235Z%22/%3E%3C/g%3E%3C/svg%3E">
+<title>Jheyvens — Graphic Designer and Video Editor</title>
+<meta name="description" content="Graphic designer and video editor for brands, campaigns and social content. Open to full-time and freelance work.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -38,8 +39,7 @@ header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;backgroun
   backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
 .bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:64px}
 .logo{font-family:"Archivo",system-ui,sans-serif;font-stretch:125%;font-weight:900;font-size:1.1rem;text-decoration:none;display:flex;align-items:center;gap:.55rem}
-.logo i{display:inline-flex;gap:2px}
-.logo i b{width:6px;height:14px;display:block}
+.logo-mark{width:30px;height:auto;overflow:visible;flex:none}
 .bar nav{display:flex;gap:1.75rem}
 .bar nav a{text-decoration:none;color:var(--muted);font-weight:500}
 .bar nav a:hover{color:var(--ink)}
@@ -311,20 +311,44 @@ main,.contact{position:relative}
 /* ================= Extra animation pack ================= */
 /* 1. Preloader: CMYK plates stack, counter runs, curtain lifts */
 #loader{display:none}
-.js #loader{display:flex;position:fixed;inset:0;z-index:200;background:#000;color:var(--ink);flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;
+.js #loader{display:flex;position:fixed;inset:0;z-index:200;background:transparent;color:var(--ink);flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;
   transition:clip-path 1s cubic-bezier(.76,0,.24,1);clip-path:inset(0 0 0 0)}
-#loader.done{clip-path:inset(0 0 100% 0)}
-.ld-plates{display:flex;gap:6px;height:56px;align-items:end}
-.ld-plates i{width:14px;height:100%;transform:scaleY(0);transform-origin:bottom;animation:plateUp .7s cubic-bezier(.16,1,.3,1) forwards}
-.ld-plates i:nth-child(2){animation-delay:.12s}.ld-plates i:nth-child(3){animation-delay:.24s}.ld-plates i:nth-child(4){animation-delay:.36s}
-@keyframes plateUp{to{transform:scaleY(1)}}
-.ld-count{font-family:"Archivo",system-ui,sans-serif;font-stretch:125%;font-weight:800;font-size:clamp(2.5rem,8vw,5rem);font-variant-numeric:tabular-nums;line-height:1}
-.ld-label{opacity:.6;font-size:.9rem}
+.ld-mask{position:absolute;inset:0;width:100%;height:100%;display:block}
+.ld-face{opacity:0}
+#loader.opening .ld-logo{opacity:0;transition:none}
+#loader.opening .ld-glow,#loader.opening .ld-grid,#loader.opening .ld-foot{opacity:0;transition:opacity .35s ease}
+/* splash: the logo is traced in light, fills in as its two strokes lock together,
+   a shine passes over it, then the camera pushes through it as the curtain lifts */
+.ld-glow{position:absolute;inset:-20%;background:radial-gradient(closest-side,rgba(60,190,255,.22),transparent 70%);animation:ldBreath 2.4s ease-in-out infinite}
+@keyframes ldBreath{50%{transform:scale(1.12);opacity:.7}}
+.ld-grid{position:absolute;inset:0;opacity:.35;background-image:linear-gradient(rgba(74,185,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(74,185,255,.08) 1px,transparent 1px);
+  background-size:56px 56px;-webkit-mask-image:radial-gradient(closest-side,#000,transparent);mask-image:radial-gradient(closest-side,#000,transparent);
+  animation:ldGrid 2.6s cubic-bezier(.16,1,.3,1) both}
+@keyframes ldGrid{from{transform:perspective(600px) rotateX(55deg) scale(1.6);opacity:0}to{transform:none;opacity:.35}}
+.ld-logo{position:relative;width:min(36vw,220px);height:auto;overflow:visible;transition:transform 1s cubic-bezier(.76,0,.24,1),opacity .8s ease,filter .8s ease}
+.ld-line path{stroke-dasharray:1;stroke-dashoffset:1;animation:ldDraw .75s cubic-bezier(.65,0,.35,1) forwards}
+.ld-line .ld-l2{animation-delay:.12s}
+@keyframes ldDraw{to{stroke-dashoffset:0}}
+.ld-line{animation:ldLineOut .4s ease .95s forwards}
+@keyframes ldLineOut{to{opacity:0}}
+.ld-fill path{opacity:0}
+.ld-f1{transform:translate(-60px,-60px);animation:ldLock .6s cubic-bezier(.22,1,.36,1) .6s forwards}
+.ld-f2{transform:translate(60px,70px);animation:ldLock .6s cubic-bezier(.22,1,.36,1) .7s forwards}
+@keyframes ldLock{to{opacity:1;transform:none}}
+.ld-halo{opacity:0;animation:ldHalo 1.1s ease .85s forwards}
+@keyframes ldHalo{40%{opacity:.85}100%{opacity:.4}}
+.ld-shine{transform:translateX(-500px) skewX(-20deg);animation:ldShine .7s cubic-bezier(.45,0,.2,1) 1.05s forwards}
+@keyframes ldShine{to{transform:translateX(1900px) skewX(-20deg)}}
+.ld-foot{position:absolute;left:0;right:0;bottom:calc(2.2rem + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:center;gap:.7rem}
+.ld-count{font-family:"Archivo",system-ui,sans-serif;font-stretch:125%;font-weight:800;font-size:.95rem;font-variant-numeric:tabular-nums;letter-spacing:.06em;color:var(--muted)}
+.ld-bar{width:min(160px,40vw);height:2px;background:rgba(255,255,255,.1);overflow:hidden;border-radius:2px}
+.ld-bar span{display:block;height:100%;background:linear-gradient(90deg,#4AB9FF,#2CDFFF);transform-origin:0 50%;transform:scaleX(0)}
+
 
 /* 2. Nav text scramble (handled in JS), plus logo plates bounce */
-.logo i b{transition:transform .4s cubic-bezier(.34,1.8,.64,1)}
-.logo:hover i b{transform:translateY(-4px)}
-.logo:hover i b:nth-child(2){transition-delay:.05s}.logo:hover i b:nth-child(3){transition-delay:.1s}.logo:hover i b:nth-child(4){transition-delay:.15s}
+.logo-mark path{transition:transform .45s cubic-bezier(.34,1.8,.64,1)}
+.logo:hover .lm1{transform:translate(-30px,-40px)}
+.logo:hover .lm2{transform:translate(30px,50px)}
 
 /* 3. Client wordmarks flip in one by one */
 .js .client-row span{transform:perspective(500px) rotateX(85deg);opacity:0;transition:transform .9s cubic-bezier(.16,1,.3,1),opacity .6s ease}
@@ -499,6 +523,205 @@ main,.contact{position:relative}
 @media (max-width:900px){.hero-photo{width:62%;height:40vh;opacity:.38}.hero-photo.hot{opacity:.48}}
 @media (prefers-reduced-motion:reduce){.hp-fx{display:none}.hp-move{transform:none!important}}
 
+/* ================= Mobile and tablet ================= */
+.menu-btn{all:unset;display:none;cursor:pointer;width:44px;height:44px;border-radius:50%;border:1px solid var(--rule);
+  position:relative;flex-shrink:0}
+.menu-btn span{position:absolute;left:13px;right:13px;height:2px;background:var(--ink);border-radius:2px;transition:transform .35s cubic-bezier(.16,1,.3,1),top .35s}
+.menu-btn span:nth-child(1){top:17px}.menu-btn span:nth-child(2){top:25px}
+.menu-btn[aria-expanded="true"] span:nth-child(1){top:21px;transform:rotate(45deg)}
+.menu-btn[aria-expanded="true"] span:nth-child(2){top:21px;transform:rotate(-45deg)}
+.menu-btn:focus-visible{outline:3px solid var(--cyan);outline-offset:2px}
+.mobile-nav{position:fixed;inset:0;z-index:19;background:rgba(0,0,0,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  display:flex;flex-direction:column;justify-content:center;gap:.4rem;padding:calc(80px + env(safe-area-inset-top,0px)) 1.5rem calc(2rem + env(safe-area-inset-bottom,0px));
+  opacity:0;transition:opacity .35s ease}
+.mobile-nav.open{opacity:1}
+.mobile-nav[hidden]{display:none}
+.mobile-nav a{font-family:"Archivo",system-ui,sans-serif;font-stretch:115%;font-weight:800;font-size:clamp(2.2rem,11vw,3.4rem);letter-spacing:-.02em;
+  color:var(--ink);text-decoration:none;padding:.35rem 0;transform:translateY(16px);opacity:0;transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .4s}
+.mobile-nav.open a{transform:none;opacity:1}
+.mobile-nav.open a:nth-child(2){transition-delay:.05s}.mobile-nav.open a:nth-child(3){transition-delay:.1s}.mobile-nav.open a:nth-child(4){transition-delay:.15s}
+body.menu-open{overflow:hidden}
+
+/* pinned scenes use the small viewport height on phones so the browser toolbar never cuts them */
+@supports (height:100svh){.st-pin,.h-pin,.jump-pin{height:100svh}}
+
+/* bigger touch targets for small dots and controls */
+.tilt-dots button{position:relative}
+.tilt-dots button::after{content:"";position:absolute;inset:-12px -6px}
+@media (pointer:coarse){.tilt-controls button{width:44px;height:44px}}
+
+@media (max-width:900px){
+  .menu-btn{display:block}
+  .bar-right{gap:.6rem}
+}
+@media (max-width:640px){
+  /* hero: photo becomes a top band above the name instead of sitting behind the text */
+  .hero{padding-top:min(70vw,300px)}
+  .hero-photo{width:100%;height:min(86vw,380px);opacity:.78;
+    -webkit-mask-image:linear-gradient(to top,transparent 0,#000 45%);mask-image:linear-gradient(to top,transparent 0,#000 45%);
+    -webkit-mask-composite:source-over;mask-composite:add}
+  .hero-photo.hot{opacity:.85}
+  .hp-layer{background-size:cover;background-position:50% 35%}
+  .reg{font-size:clamp(3.2rem,17vw,5rem)}
+  .hero-grid{gap:1.75rem}
+  .hero-lede{font-size:1.25rem}
+  .ctas .btn{flex:1 1 auto;justify-content:center;min-height:48px;box-sizing:border-box}
+  .client-row{justify-content:flex-start;gap:.9rem 1.6rem}
+  .client-row span{font-size:1rem}
+  .head{margin-bottom:2rem}
+  .case{margin-bottom:3.5rem}
+  .facts{grid-template-columns:5rem 1fr}
+  .timeline{padding-left:1.4rem}
+  .timeline li::before{left:calc(-1.4rem - 5px)}
+  .quote blockquote{font-size:1.5rem}
+  .contact h2{margin-bottom:1.75rem}
+  .contact .mail{font-size:1.2rem;word-break:break-all}
+  .socials{gap:1rem 1.4rem}
+  #toTop{width:46px;height:46px}
+  .marquee-track span{font-size:2rem}
+}
+@media (max-width:380px){
+  .reg{font-size:clamp(2.8rem,16vw,4rem)}
+  .bar .clock{display:none}
+}
+
+/* ================= Client project pages ================= */
+.project{padding-top:clamp(2rem,5vw,3.5rem)}
+.pj-back{display:inline-flex;align-items:center;gap:.4rem;color:var(--muted);text-decoration:none;font-weight:500;padding:.4rem 0}
+.pj-back:hover{color:var(--ink)}
+.pj-head{padding:clamp(2rem,6vw,4.5rem) 0 clamp(1rem,3vw,2rem);max-width:62rem}
+.pj-cat{margin:0 0 1rem;color:var(--cyan);font-weight:600}
+.pj-title{font-size:clamp(3rem,11vw,8.5rem);margin:0 0 2rem}
+.pj-facts{max-width:34rem;grid-template-columns:max-content 1fr!important}
+.pj-intro{font-size:clamp(1.15rem,2vw,1.45rem);line-height:1.45;max-width:44ch;margin:1.5rem 0 0;color:var(--ink)}
+.pj-sec{border-top:1px solid var(--rule)}
+.pj-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(1.5rem,5vw,4rem);align-items:start}
+.pj-two h2{font-size:clamp(2rem,4.5vw,3.4rem);margin:0}
+.pj-two p{margin:0;max-width:56ch;color:var(--muted);font-size:1.1rem}
+.pj-skills{list-style:none;margin:1.5rem 0 0;padding:0;display:flex;flex-wrap:wrap;gap:.5rem}
+.pj-skills li{padding:.45rem .9rem;border:1px solid var(--rule);border-radius:999px;font-size:.92rem;background:var(--panel)}
+.pj-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(1rem,2.5vw,2rem)}
+.pj-steps li{border-top:3px solid var(--rule);padding-top:1.25rem}
+.pj-steps li:nth-child(1){border-color:var(--cyan)}.pj-steps li:nth-child(2){border-color:var(--magenta)}
+.pj-steps li:nth-child(3){border-color:var(--yellow)}.pj-steps li:nth-child(4){border-color:var(--ink)}
+.pj-n{display:block;font-family:"Archivo",system-ui,sans-serif;font-stretch:125%;font-weight:900;font-size:2.4rem;line-height:1;color:transparent;-webkit-text-stroke:1.5px var(--ink);margin-bottom:.8rem}
+.pj-steps h3{font-family:"Archivo",system-ui,sans-serif;font-stretch:110%;font-weight:800;font-size:1.3rem;margin:0 0 .5rem}
+.pj-steps p{margin:0;color:var(--muted)}
+/* gallery: row-ordered grid so pieces read left to right; the work leads, text supports */
+.pg-filters{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 clamp(1.25rem,2.5vw,2rem)}
+.pg-f{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;padding:.55rem 1rem;border-radius:999px;border:1px solid var(--rule);
+  font-weight:600;font-size:.92rem;color:var(--muted);transition:color .2s,border-color .2s,background .2s}
+.pg-f span{font-weight:500;opacity:.7;font-variant-numeric:tabular-nums}
+.pg-f:hover{color:var(--ink);border-color:color-mix(in srgb,var(--ink) 35%,transparent)}
+.pg-f.on{background:var(--ink);color:#000;border-color:var(--ink)}
+.pg-f:focus-visible{outline:3px solid var(--cyan);outline-offset:2px}
+.pg-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.pg-dot.static,.pg-badge.static::before{background:var(--cyan)}
+.pg-dot.animated,.pg-badge.animated::before{background:var(--magenta)}
+.pg-dot.video,.pg-badge.video::before{background:var(--yellow)}
+.pj-gallery{--gap:clamp(.75rem,1.6vw,1.25rem);--cols:4;
+  --row:calc((min(100vw,1240px) - 2 * clamp(1.25rem,4vw,2.5rem) - (var(--cols) - 1) * var(--gap)) / var(--cols) * .56);
+  display:grid;grid-template-columns:repeat(var(--cols),minmax(0,1fr));grid-auto-rows:var(--row);grid-auto-flow:dense;gap:var(--gap)}
+.pg-item{position:relative;margin:0;display:flex;flex-direction:column;min-width:0;min-height:0;
+  transition:opacity .35s ease,transform .45s cubic-bezier(.16,1,.3,1)}
+.pg-item.c1{grid-column:span 1}.pg-item.c2{grid-column:span 2}
+.pg-item.r2{grid-row:span 2}.pg-item.r3{grid-row:span 3}.pg-item.r4{grid-row:span 4}
+.pg-item[hidden]{display:none}
+.pg-media{all:unset;box-sizing:border-box;position:relative;flex:1;min-height:0;display:block;width:100%;border-radius:8px;overflow:hidden;
+  background:var(--panel);cursor:zoom-in;box-shadow:0 0 0 1px var(--rule);transition:box-shadow .3s,transform .45s cubic-bezier(.16,1,.3,1)}
+.pg-media img,.pg-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.16,1,.3,1)}
+.pg-media video{object-fit:contain;background:#000;cursor:default}
+div.pg-media{cursor:default}
+.pg-zoom:hover{box-shadow:0 0 0 1px var(--cyan),0 18px 40px -18px rgba(0,0,0,.8);transform:translateY(-3px)}
+.pg-zoom:hover img{transform:scale(1.035)}
+.pg-zoom:focus-visible{box-shadow:0 0 0 3px var(--cyan)}
+.pg-hint{position:absolute;right:.6rem;bottom:.6rem;padding:.3rem .65rem;border-radius:999px;background:rgba(0,0,0,.65);font-size:.78rem;font-weight:600;
+  opacity:0;transform:translateY(4px);transition:opacity .25s,transform .25s}
+.pg-zoom:hover .pg-hint,.pg-zoom:focus-visible .pg-hint{opacity:1;transform:none}
+/* type badge sits on the work, so the category reads at a glance */
+.pg-badge{position:absolute;top:.6rem;left:.6rem;z-index:2;display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .65rem;border-radius:999px;
+  background:rgba(0,0,0,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);font-size:.75rem;font-weight:600;color:var(--ink);pointer-events:none}
+.pg-badge::before{content:"";width:7px;height:7px;border-radius:50%}
+/* placeholders: clearly a slot for real work */
+.pg-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;text-align:center;padding:1rem;
+  box-shadow:none;border:1.5px dashed color-mix(in srgb,var(--ink) 26%,transparent);
+  background:repeating-linear-gradient(135deg,rgba(255,255,255,.025) 0 12px,transparent 12px 24px),var(--panel)}
+.pg-ph:hover{border-color:var(--cyan)}
+.pg-ph-ico svg{width:30px;height:30px;fill:none;stroke:var(--muted);stroke-width:1.5;stroke-linejoin:round}
+.pg-ph-lbl{font-family:"Archivo",system-ui,sans-serif;font-stretch:110%;font-weight:800;font-size:.85rem;color:var(--ink);max-width:22ch}
+.pg-ph-note{font-size:.76rem;color:var(--muted)}
+.featured .pg-ph-lbl{font-size:1.05rem}
+/* captions stay short: title plus one line of context, full text in the viewer */
+.pg-item figcaption{flex:none;display:grid;gap:.1rem;padding:.6rem .15rem 0}
+.pg-item strong{font-weight:600;font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pg-desc{color:var(--muted);font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.featured strong{font-size:1.1rem}
+@media (max-width:900px){.pj-gallery{--cols:2;--row:calc((min(100vw,1240px) - 2 * clamp(1.25rem,4vw,2.5rem) - var(--gap)) / 2 * .62)}}
+@media (max-width:560px){.pj-gallery{--row:calc((100vw - 2.5rem - var(--gap)) / 2 * .66)}.pg-desc{display:none}.pg-badge{font-size:.7rem;padding:.25rem .55rem}}
+.pj-results p{border:1px dashed var(--rule);border-radius:6px;padding:1rem 1.2rem;font-size:1rem}
+.pj-info{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin:0;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:var(--panel)}
+.pj-info div{padding:1.1rem 1.25rem;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.pj-info div:nth-child(3n){border-right:0}.pj-info div:nth-last-child(-n+3){border-bottom:0}
+.pj-info dt{color:var(--muted);font-size:.85rem;margin-bottom:.25rem}
+.pj-info dd{margin:0;font-weight:600}
+.pj-nav{display:flex;justify-content:space-between;align-items:center;gap:1.5rem;flex-wrap:wrap;padding-top:2.5rem;padding-bottom:clamp(3rem,7vw,5rem);border-top:1px solid var(--rule)}
+.pj-pn{display:flex;gap:1rem;flex-wrap:wrap}
+.pj-pn-link{display:grid;gap:.15rem;text-decoration:none;padding:.9rem 1.2rem;border:1px solid var(--rule);border-radius:10px;min-width:11rem;transition:border-color .3s,transform .4s cubic-bezier(.16,1,.3,1)}
+.pj-pn-link span{font-size:.82rem;color:var(--muted)}
+.pj-pn-link strong{font-family:"Archivo",system-ui,sans-serif;font-stretch:110%;font-size:1.15rem}
+.pj-pn-link:hover{border-color:var(--cyan);transform:translateY(-3px)}
+.pj-next{text-align:right}
+.case-link{margin-top:1.25rem}
+/* page wipe between portfolio and project pages */
+#pageWipe{position:fixed;inset:0;z-index:180;background:#0B0C10;pointer-events:none;clip-path:inset(100% 0 0 0)}
+#pageWipe::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--cyan),var(--magenta),var(--yellow))}
+#pageWipe.in{animation:wipeIn .38s cubic-bezier(.76,0,.24,1) forwards}
+#pageWipe.out{animation:wipeOut .5s cubic-bezier(.76,0,.24,1) forwards}
+@keyframes wipeIn{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes wipeOut{from{clip-path:inset(0 0 0 0)}to{clip-path:inset(0 0 100% 0)}}
+/* lightbox */
+#lightbox{position:fixed;inset:0;z-index:240;background:rgba(0,0,0,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:calc(4rem + env(safe-area-inset-top,0px)) 1.25rem calc(2rem + env(safe-area-inset-bottom,0px));
+  opacity:0;transition:opacity .25s ease}
+#lightbox.open{opacity:1}
+#lightbox[hidden]{display:none}
+.lb-body{width:min(100%,1100px);max-height:78vh;display:flex;justify-content:center;transform:scale(.97);transition:transform .35s cubic-bezier(.16,1,.3,1)}
+#lightbox.open .lb-body{transform:none}
+.lb-body>*{height:auto;max-height:78vh;width:auto;max-width:100%;cursor:default}
+.lb-ph{display:flex!important;height:min(70vh,640px);width:auto!important;max-width:100%;flex:none!important}
+.lb-img{display:block;max-width:100%;max-height:72vh;width:auto;height:auto;object-fit:contain;border-radius:6px}
+.lb-body img{max-height:78vh;width:auto;max-width:100%;object-fit:contain}
+.lb-cap{display:grid;gap:.2rem;text-align:center;max-width:60ch}
+.lb-type{font-size:.8rem;font-weight:600;color:var(--cyan)}
+.lb-title{font-size:1.05rem}
+.lb-desc{color:var(--muted);font-size:.92rem}
+.lb-count{color:var(--muted);font-size:.8rem;font-variant-numeric:tabular-nums;margin-top:.2rem}
+.lb-nav{all:unset;position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;display:grid;place-items:center;
+  border:1px solid var(--rule);background:rgba(0,0,0,.5);color:var(--ink);cursor:pointer;font-size:1.2rem;z-index:2}
+.lb-nav:hover{border-color:var(--cyan)}.lb-nav:focus-visible{outline:3px solid var(--cyan)}
+.lb-prev{left:1rem}.lb-next{right:1rem}
+.lb-nav[hidden]{display:none}
+@media (max-width:560px){.lb-nav{top:auto;bottom:calc(1rem + env(safe-area-inset-bottom,0px));transform:none}}
+.lb-close{all:unset;position:absolute;top:calc(1rem + env(safe-area-inset-top,0px));right:1rem;width:46px;height:46px;border-radius:50%;
+  display:grid;place-items:center;border:1px solid var(--rule);color:var(--ink);cursor:pointer;font-size:1.2rem}
+.lb-close:focus-visible{outline:3px solid var(--cyan)}
+@media (max-width:900px){
+  .pj-two{grid-template-columns:1fr}
+  .pj-steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pj-info{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pj-info div{border-right:1px solid var(--rule)!important;border-bottom:1px solid var(--rule)!important}
+  .pj-info div:nth-child(2n){border-right:0!important}.pj-info div:nth-last-child(-n+2){border-bottom:0!important}
+}
+@media (max-width:560px){
+  .pj-steps{grid-template-columns:1fr}
+  .pj-info{grid-template-columns:1fr}
+  .pj-info div{border-right:0!important;border-bottom:1px solid var(--rule)!important}.pj-info div:last-child{border-bottom:0!important}
+  .pj-nav{flex-direction:column;align-items:stretch}
+  .pj-pn{display:grid;grid-template-columns:1fr 1fr}
+  .pj-pn-link{min-width:0}
+}
+@media (prefers-reduced-motion:reduce){#pageWipe{display:none}.pg-media img{transition:none}}
+
 /* ---------- Responsive ---------- */
 @media (max-width:900px){
   .bar nav{display:none}
@@ -533,7 +756,10 @@ main,.contact{position:relative}
   .scrub .sw{opacity:1}
   .js .portrait img{clip-path:none;transform:none}
   .grain{animation:none}
-  .js #loader{display:none}
+  .ld-line,.ld-halo,.ld-shine,.ld-grid{display:none}
+  .ld-fill path{opacity:1!important;transform:none!important;animation:none!important}
+  .ld-glow{animation:none}
+  #loader.fading{opacity:0;transition:opacity .45s ease}
   .js .client-row span{transform:none;opacity:.7}
   .case figure{transform:none}
   .cap svg.ico *{stroke-dashoffset:0;transition:none}
@@ -552,14 +778,39 @@ main,.contact{position:relative}
 </style>
 </head>
 <body>
-<div id="loader" aria-hidden="true" data-noedit><div class="ld-plates"><i style="background:var(--cyan)"></i><i style="background:var(--magenta)"></i><i style="background:var(--yellow)"></i><i style="background:var(--paper)"></i></div><div class="ld-count" id="ldCount">0</div><div class="ld-label">Loading portfolio</div></div>
+<div id="loader" aria-hidden="true" data-noedit>
+  <svg class="ld-mask" id="ldMask" width="100%" height="100%" aria-hidden="true">
+    <defs>
+      <linearGradient id="ldMGrad" gradientUnits="userSpaceOnUse" x1="349" y1="495" x2="1651" y2="1503"><stop offset="0" stop-color="#4AB9FF"/><stop offset="1" stop-color="#2CDFFF"/></linearGradient>
+      <mask id="ldHole" maskUnits="userSpaceOnUse" x="-50000" y="-50000" width="100000" height="100000">
+        <rect x="-50000" y="-50000" width="100000" height="100000" fill="#fff"/>
+        <g class="ld-zoom"><path d="M349 495L1000 975L1651 495L1651 673L1000 1155L499 782L499 1503L349 1401Z" fill="#000"/><path d="M642 1061L1000 1323L1651 833L1651 1009L1000 1503L642 1235Z" fill="#000"/></g>
+      </mask>
+    </defs>
+    <rect class="ld-cover" x="-50000" y="-50000" width="100000" height="100000" fill="#000" mask="url(#ldHole)"/>
+    <g class="ld-zoom ld-face" fill="url(#ldMGrad)"><path d="M349 495L1000 975L1651 495L1651 673L1000 1155L499 782L499 1503L349 1401Z"/><path d="M642 1061L1000 1323L1651 833L1651 1009L1000 1503L642 1235Z"/></g>
+  </svg>
+  <div class="ld-glow"></div><div class="ld-grid"></div>
+  <svg class="ld-logo" viewBox="329 475 1342 1048" role="img" aria-label="Logo">
+    <defs><linearGradient id="ldGrad" gradientUnits="userSpaceOnUse" x1="349" y1="495" x2="1651" y2="1503"><stop offset="0" stop-color="#4AB9FF"/><stop offset="1" stop-color="#2CDFFF"/></linearGradient>
+      <linearGradient id="ldShine" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      <clipPath id="ldClip"><path d="M349 495L1000 975L1651 495L1651 673L1000 1155L499 782L499 1503L349 1401Z"/><path d="M642 1061L1000 1323L1651 833L1651 1009L1000 1503L642 1235Z"/></clipPath>
+      <filter id="ldBlur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="28"/></filter>
+    </defs>
+    <g class="ld-halo" filter="url(#ldBlur)" fill="url(#ldGrad)"><path d="M349 495L1000 975L1651 495L1651 673L1000 1155L499 782L499 1503L349 1401Z"/><path d="M642 1061L1000 1323L1651 833L1651 1009L1000 1503L642 1235Z"/></g>
+    <g class="ld-fill" fill="url(#ldGrad)"><path class="ld-f1" d="M349 495L1000 975L1651 495L1651 673L1000 1155L499 782L499 1503L349 1401Z"/><path class="ld-f2" d="M642 1061L1000 1323L1651 833L1651 1009L1000 1503L642 1235Z"/></g>
+    <g clip-path="url(#ldClip)"><rect class="ld-shine" x="0" y="400" width="420" height="1200" fill="url(#ldShine)" transform="skewX(-20)"/></g>
+    <g class="ld-line" fill="none" stroke="url(#ldGrad)" stroke-width="10" stroke-linejoin="round"><path class="ld-l1" pathLength="1" d="M349 495L1000 975L1651 495L1651 673L1000 1155L499 782L499 1503L349 1401Z"/><path class="ld-l2" pathLength="1" d="M642 1061L1000 1323L1651 833L1651 1009L1000 1503L642 1235Z"/></g>
+  </svg>
+  <div class="ld-foot"><div class="ld-count" id="ldCount">0</div><div class="ld-bar"><span id="ldBar"></span></div></div>
+</div>
 <canvas id="inkbg" aria-hidden="true"></canvas>
 <div class="grain" aria-hidden="true"></div>
 
 <header class="top">
   <div class="wrap bar">
     <a class="logo" href="#top" aria-label="Jheyvens, home">
-      <i aria-hidden="true"><b style="background:var(--cyan)"></b><b style="background:var(--magenta)"></b><b style="background:var(--yellow)"></b><b style="background:var(--key)"></b></i>
+      <svg class="logo-mark" viewBox="329 475 1342 1048" aria-hidden="true"><defs><linearGradient id="hdGrad" gradientUnits="userSpaceOnUse" x1="349" y1="495" x2="1651" y2="1503"><stop offset="0" stop-color="#4AB9FF"/><stop offset="1" stop-color="#2CDFFF"/></linearGradient></defs><g fill="url(#hdGrad)"><path class="lm1" d="M349 495L1000 975L1651 495L1651 673L1000 1155L499 782L499 1503L349 1401Z"/><path class="lm2" d="M642 1061L1000 1323L1651 833L1651 1009L1000 1503L642 1235Z"/></g></svg>
       Jheyvens
     </a>
     <nav aria-label="Main">
@@ -569,11 +820,23 @@ main,.contact{position:relative}
       <a href="#contact">Contact</a>
     </nav>
     <div class="bar-right">
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav"><span></span><span></span></button>
       <span class="clock" id="clock" data-noedit aria-label="Local time in Manila"><span class="city">Manila </span><span id="time">--:--</span></span>
     </div>
   </div>
   <div class="progress" aria-hidden="true"><span id="progress"></span></div>
 </header>
+<div id="pageWipe" aria-hidden="true"></div>
+<div id="lightbox" data-noedit role="dialog" aria-modal="true" aria-label="Enlarged view" hidden>
+  <button class="lb-close" type="button" aria-label="Close">✕</button>
+  <button class="lb-nav lb-prev" type="button" aria-label="Previous piece">←</button>
+  <div class="lb-body"></div>
+  <button class="lb-nav lb-next" type="button" aria-label="Next piece">→</button>
+  <div class="lb-cap"><span class="lb-type"></span><strong class="lb-title"></strong><span class="lb-desc"></span><span class="lb-count"></span></div>
+</div>
+<nav class="mobile-nav" id="mobileNav" aria-label="Menu" hidden>
+  <a href="#work">Work</a><a href="#capabilities">Capabilities</a><a href="#about">About</a><a href="#contact">Contact</a>
+</nav>
 <div id="cursor" aria-hidden="true" data-noedit><b>View</b></div>
 
 <main id="top">
@@ -594,12 +857,12 @@ main,.contact{position:relative}
       <div id="stickers" aria-hidden="true"></div>
       <h1 class="display reg" data-text="Jheyvens"><span>Jheyvens</span></h1>
       <span class="name-rule" aria-hidden="true"></span>
-      <span class="name-title">Graphic artist and art director, since 2013</span>
+      <span class="name-title">Graphic designer and video editor</span>
       <span class="name-hint" aria-hidden="true">Move over my name, or click it.</span>
       <div class="hero-grid">
-        <p class="hero-lede split">Senior graphic artist making brand identities, campaign art and packaging that hold up at global scale.</p>
+        <p class="hero-lede split">Graphic designer and video editor making brand visuals, campaign videos and social content people stop scrolling for.</p>
         <div>
-          <p class="hero-meta"><span class="status"><strong>Open to senior and lead roles</strong></span><br>12 years in brand and campaign work. Based in the Philippines, working with teams across Asia, Europe and North America.</p>
+          <p class="hero-meta"><span class="status"><strong>Open to full-time and freelance work</strong></span><br>Design and video for brands, creators and agencies. Based in the Philippines, working with teams anywhere.</p>
           <div class="ctas">
             <a class="btn solid" href="#work">View selected work</a>
             <a class="btn line" href="#" download>Download résumé (PDF)</a>
@@ -621,20 +884,20 @@ main,.contact{position:relative}
   <section class="statement" id="statement" aria-label="Statement">
     <div class="st-pin">
       <div class="discs" aria-hidden="true"><i style="background:var(--cyan)"></i><i style="background:var(--magenta)"></i><i style="background:var(--yellow)"></i></div>
-      <p class="st-text"><span>Every pixel</span><span>ready for</span><span>press.</span></p>
-      <p class="st-note">Three inks overlap into one solid mark. Good identity work is the same: separate parts that add up to one clear idea.</p>
+      <p class="st-text"><span>Every pixel.</span><span>Every</span><span>frame.</span></p>
+      <p class="st-note">Design and video come from the same eye: separate parts that add up to one clear idea.</p>
     </div>
   </section>
 
-  <section class="jump" id="jump" aria-label="A chrome star that opens into light trails">
+  <section class="jump" id="jump" aria-label="The logo opens into light trails">
     <div class="jump-pin">
       <p class="portal-intro" id="pIntro">Step inside.</p>
       <canvas id="heart3d" aria-hidden="true"></canvas>
       <div class="portal-content" id="pContent">
-        <div class="slide" data-from="0.3" data-to="0.44"><p class="s-kicker">Inside the studio</p><p class="s-big">Every brand starts as a small idea.</p></div>
-        <div class="slide" data-from="0.45" data-to="0.58"><p class="s-num">12</p><p class="s-label">years turning briefs into visual systems</p></div>
-        <div class="slide" data-from="0.59" data-to="0.71"><p class="s-num">140+</p><p class="s-label">identity, campaign and packaging projects</p></div>
-        <div class="slide" data-from="0.72" data-to="0.84"><div class="s-chips"><span>Identity</span><span>Campaign</span><span>Packaging</span><span>Print</span></div><p class="s-label">one designer, from first sketch to final file</p></div>
+        <div class="slide" data-from="0.3" data-to="0.44"><p class="s-kicker">Inside the studio</p><p class="s-big">Every project starts as a small idea.</p></div>
+        <div class="slide" data-from="0.45" data-to="0.58"><p class="s-num">12</p><p class="s-label">years designing and editing for brands</p></div>
+        <div class="slide" data-from="0.59" data-to="0.71"><p class="s-num">140+</p><p class="s-label">design and video projects delivered</p></div>
+        <div class="slide" data-from="0.72" data-to="0.84"><div class="s-chips"><span>Design</span><span>Video</span><span>Motion</span><span>Color</span></div><p class="s-label">one creative, from first sketch to final export</p></div>
         <div class="slide" data-from="0.84" data-to="1.02"><p class="s-big">Now, the work.</p></div>
       </div>
       <p class="portal-cue" id="pCue">Scroll to go through</p>
@@ -647,7 +910,7 @@ main,.contact{position:relative}
     <div class="wrap">
       <div class="head">
         <h2 class="display split" id="work-h">Selected work</h2>
-        <p class="rise">Four projects from the last five years, each with the brief, my role, and what changed for the business.</p>
+        <p class="rise">Four projects across design and video, each with the brief, my role, and what changed for the client.</p>
       </div>
 
       <div class="cases">
@@ -657,7 +920,7 @@ main,.contact{position:relative}
             <p class="client rise">Halcyon Air, 2025</p>
             <h3 class="split">An airline identity built to go international</h3>
             <p class="summary rise">A regional carrier was expanding to twelve new routes and needed a brand that read clearly at every size, from a seat-back screen to a 40-meter tail fin.</p>
-            <dl class="facts rise"><dt>Role</dt><dd>Lead graphic artist</dd><dt>Scope</dt><dd>Logo, livery, type system, wayfinding</dd><dt>Team</dt><dd>3 designers, 1 motion artist</dd></dl>
+            <dl class="facts rise"><dt>Role</dt><dd>Lead designer</dd><dt>Scope</dt><dd>Logo, livery, type system, wayfinding</dd><dt>Team</dt><dd>3 designers, 1 motion artist</dd></dl>
             <p class="result rise">Rolled out across <span class="num" data-to="120">120</span> touchpoints in under eight months.</p>
           </div>
         </article>
@@ -674,24 +937,24 @@ main,.contact{position:relative}
         </article>
 
         <article class="case">
-          <figure><img data-art="2" alt="Lumen Bank campaign: layered paper-cut illustration with warm light"></figure>
+          <figure><img data-art="2" alt="Lumen Bank campaign film: still frame of layered paper-cut scenery in warm light"></figure>
           <div>
             <p class="client rise">Lumen Bank, 2023</p>
-            <h3 class="split">A campaign that made saving feel human</h3>
-            <p class="summary rise">A national campaign for first-time savers, told through a series of layered illustrations across billboards, social and in-branch print.</p>
-            <dl class="facts rise"><dt>Role</dt><dd>Illustrator and art director</dd><dt>Scope</dt><dd>Key visual, 24 illustrations, OOH and social</dd><dt>Partner</dt><dd>In-house creative team</dd></dl>
+            <h3 class="split">A campaign film that made saving feel human</h3>
+            <p class="summary rise">A 60-second film for first-time savers, cut down into short versions for social, with the same look carried into the key visual and print.</p>
+            <dl class="facts rise"><dt>Role</dt><dd>Video editor and designer</dd><dt>Scope</dt><dd>Edit, color grade, motion graphics, key visual</dd><dt>Output</dt><dd>1 hero film, 12 social cutdowns</dd></dl>
             <p class="result rise"><span class="num" data-to="2.4" data-dec="1" data-suffix="×">2.4×</span> the bank's previous campaign engagement.</p>
           </div>
         </article>
 
         <article class="case">
-          <figure><img data-art="3" alt="Kairo summit key visual: geometric halftone shapes in cyan and magenta"></figure>
+          <figure><img data-art="3" alt="Kairo summit: geometric halftone key visual used across stage screens and the recap film"></figure>
           <div>
             <p class="client rise">Kairo Telecom, 2022</p>
-            <h3 class="split">Key visual for a 5,000-person tech summit</h3>
-            <p class="summary rise">A flexible visual language for stage, screens, badges and merch, designed so the event team could produce hundreds of assets without me in the loop.</p>
-            <dl class="facts rise"><dt>Role</dt><dd>Senior graphic artist</dd><dt>Scope</dt><dd>Key visual, stage graphics, asset templates</dd><dt>Output</dt><dd>400+ assets from one toolkit</dd></dl>
-            <p class="result rise">Adopted as the template for the next three annual events.</p>
+            <h3 class="split">Visuals and a recap film for a 5,000-person summit</h3>
+            <p class="summary rise">A key visual and animated stage loops for the event, then a same-day recap film edited on site from the crew&#39;s footage.</p>
+            <dl class="facts rise"><dt>Role</dt><dd>Designer and video editor</dd><dt>Scope</dt><dd>Key visual, stage motion loops, recap edit</dd><dt>Output</dt><dd>Recap film and 30 social clips</dd></dl>
+            <p class="result rise">Recap film live within 24 hours of the closing keynote.</p>
           </div>
         </article>
       </div>
@@ -702,28 +965,28 @@ main,.contact{position:relative}
     <div class="h-pin">
       <div class="wrap h-head">
         <h2 class="display split" id="process-h">How I work</h2>
-        <p class="rise">Five steps I run on every identity and campaign, from the first call to the final file handoff.</p>
+        <p class="rise">Five steps I run on every design and video project, from the first call to the final export.</p>
       </div>
       <div class="h-track" id="hTrack">
         <article class="h-panel"><p class="n">01</p><img data-study="2" alt=""><h3>Listen</h3><p>Brief, stakeholder interviews and an audit of every place the brand shows up today.</p></article>
         <article class="h-panel"><p class="n">02</p><img data-study="0" alt=""><h3>Explore</h3><p>Fast sketches, moodboards and type and color studies, narrowed to two or three clear routes.</p></article>
-        <article class="h-panel"><p class="n">03</p><img data-study="3" alt=""><h3>Build the system</h3><p>Rules for grid, type, color and imagery that make the idea repeatable at any size.</p></article>
-        <article class="h-panel"><p class="n">04</p><img data-study="1" alt=""><h3>Prove it</h3><p>Test on real touchpoints: packaging mockups, press proofs, screens and signage.</p></article>
-        <article class="h-panel"><p class="n">05</p><img data-study="5" alt=""><h3>Hand off</h3><p>Guidelines, templates and production files, plus a walkthrough so teams can run with it.</p></article>
+        <article class="h-panel"><p class="n">03</p><img data-study="3" alt=""><h3>Design and edit</h3><p>Layouts, type and color for design work; a rough cut, then a fine cut for video.</p></article>
+        <article class="h-panel"><p class="n">04</p><img data-study="1" alt=""><h3>Polish</h3><p>Color grading, sound, motion details, and checks for print and every platform.</p></article>
+        <article class="h-panel"><p class="n">05</p><img data-study="5" alt=""><h3>Hand off</h3><p>Final files in every size and format, source files, and a quick walkthrough.</p></article>
       </div>
       <div class="wrap"><div class="h-meter" aria-hidden="true"><span id="hMeter"></span></div></div>
     </div>
   </section>
 
   <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee">
-    <span>Brand identity</span><span>Campaign art</span><span>Packaging</span><span>Illustration</span><span>Print production</span><span>Key visuals</span><span>Design systems</span><span>Art direction</span>
+    <span>Brand identity</span><span>Video editing</span><span>Motion graphics</span><span>Color grading</span><span>Social content</span><span>Packaging</span><span>Key visuals</span><span>Art direction</span>
   </div></div>
 
   <section class="block sketch" id="sketchbook" aria-labelledby="sketch-h">
     <div class="wrap">
       <div class="head">
         <h2 class="display split" id="sketch-h">Sketchbook</h2>
-        <p class="rise">Personal studies in type, color and pattern. This is where most of my client ideas start.</p>
+        <p class="rise">Personal studies in type, color, pattern and motion. This is where most of my client ideas start.</p>
       </div>
       <div class="tilt-stage">
         <div class="tilt" id="tilt">
@@ -746,26 +1009,26 @@ main,.contact{position:relative}
     <div class="wrap">
       <div class="head">
         <h2 class="display split" id="cap-h">Capabilities</h2>
-        <p class="rise">I work from first sketch to final print file, and I build systems that other teams can run with.</p>
+        <p class="rise">I work from first sketch to final export, across print, screens and video.</p>
       </div>
       <div class="caps">
         <div class="cap rise">
-          <svg class="ico" viewBox="0 0 44 44" aria-hidden="true"><circle pathLength="1" cx="16" cy="22" r="12"/><rect class="acc" pathLength="1" x="20" y="10" width="22" height="22" rx="2"/></svg><h3>Brand identity</h3>
-          <p>Marks, type and color systems that stay consistent across markets and media.</p>
-          <ul><li>Logo and visual identity</li><li>Brand guidelines</li><li>Design systems for marketing</li></ul>
+          <svg class="ico" viewBox="0 0 44 44" aria-hidden="true"><circle pathLength="1" cx="16" cy="22" r="12"/><rect class="acc" pathLength="1" x="20" y="10" width="22" height="22" rx="2"/></svg><h3>Graphic design</h3>
+          <p>Brand visuals, social graphics and print that stay consistent everywhere they show up.</p>
+          <ul><li>Logo and visual identity</li><li>Social media graphics</li><li>Print, packaging and posters</li></ul>
         </div>
         <div class="cap rise">
-          <svg class="ico" viewBox="0 0 44 44" aria-hidden="true"><path pathLength="1" d="M4 30 L4 16 L28 6 L28 40 L4 30 Z"/><path class="acc" pathLength="1" d="M34 14 Q40 22 34 30 M38 9 Q47 22 38 35"/></svg><h3>Campaign and illustration</h3>
-          <p>Key visuals and illustration series for launches, events and always-on social.</p>
-          <ul><li>Key visual development</li><li>Editorial and campaign illustration</li><li>Out-of-home and social assets</li></ul>
+          <svg class="ico" viewBox="0 0 44 44" aria-hidden="true"><path pathLength="1" d="M4 30 L4 16 L28 6 L28 40 L4 30 Z"/><path class="acc" pathLength="1" d="M34 14 Q40 22 34 30 M38 9 Q47 22 38 35"/></svg><h3>Video editing</h3>
+          <p>Ads, brand films, YouTube and short-form edits with pacing that keeps people watching.</p>
+          <ul><li>Editing for ads, YouTube and reels</li><li>Color grading</li><li>Sound cleanup and music</li></ul>
         </div>
         <div class="cap rise">
-          <svg class="ico" viewBox="0 0 44 44" aria-hidden="true"><path pathLength="1" d="M6 14 L22 6 L38 14 L38 32 L22 40 L6 32 Z M6 14 L22 22 L38 14 M22 22 L22 40"/><path class="acc" pathLength="1" d="M14 10 L30 18"/></svg><h3>Packaging and print</h3>
-          <p>Production-ready files, color management and press checks done right the first time.</p>
-          <ul><li>Packaging systems</li><li>Prepress and color proofing</li><li>Large-format and print production</li></ul>
+          <svg class="ico" viewBox="0 0 44 44" aria-hidden="true"><path pathLength="1" d="M6 14 L22 6 L38 14 L38 32 L22 40 L6 32 Z M6 14 L22 22 L38 14 M22 22 L22 40"/><path class="acc" pathLength="1" d="M14 10 L30 18"/></svg><h3>Motion graphics</h3>
+          <p>Movement that makes the design and the edit feel like one piece.</p>
+          <ul><li>Titles and lower thirds</li><li>Logo animation</li><li>Animated social content</li></ul>
         </div>
       </div>
-      <p class="tools"><strong>Tools:</strong> Adobe Illustrator, Photoshop, InDesign, After Effects, Figma, Procreate, Blender for mockups.</p>
+      <p class="tools"><strong>Tools:</strong> Photoshop, Illustrator, InDesign, Lightroom, Premiere Pro, After Effects, CapCut, Canva and Figma.</p>
     </div>
   </section>
 
@@ -778,14 +1041,14 @@ main,.contact{position:relative}
         </figure>
         <div class="about-text">
           <h2 class="display split" id="about-h" style="font-size:clamp(2.4rem,6vw,4.75rem);margin:0 0 2rem">About</h2>
-          <p class="big scrub">I've spent twelve years turning big, messy briefs into visual systems that teams can actually use.</p>
-          <p>I started in a print shop, which is why I still care about how a design looks on paper, under store lights, and on a cheap phone screen. Since then I've led identity and campaign work for airlines, banks, food brands and tech companies.</p>
-          <p>I do my best work inside cross-functional teams: with marketers who know the numbers, writers who know the voice, and developers who will build what I hand over.</p>
+          <p class="big scrub">I turn big, messy briefs into designs and videos that teams can actually use.</p>
+          <p>I started out designing posters and editing videos for friends, which taught me to care about both the frame and the cut. Since then I've worked on brand identities, campaign films and social content for airlines, banks, food brands and tech companies.</p>
+          <p>I do my best work inside teams: marketers who know the numbers, writers who know the voice, and producers who keep the shoot on schedule.</p>
           <ol class="timeline rise" aria-label="Experience"><span class="tl-line" aria-hidden="true"><span id="tlFill"></span></span>
-            <li><span class="yrs">2022 – now</span><div><strong>Lead Graphic Artist</strong><span class="org">Brightline Studio, Manila</span></div></li>
-            <li><span class="yrs">2018 – 2022</span><div><strong>Senior Graphic Designer</strong><span class="org">Northpoint Creative Agency</span></div></li>
-            <li><span class="yrs">2015 – 2018</span><div><strong>Graphic Designer</strong><span class="org">In-house brand team, retail group</span></div></li>
-            <li><span class="yrs">2013 – 2015</span><div><strong>Production Artist</strong><span class="org">Commercial print shop</span></div></li>
+            <li><span class="yrs">2022 – now</span><div><strong>Senior Designer and Video Editor</strong><span class="org">Brightline Studio, Manila</span></div></li>
+            <li><span class="yrs">2018 – 2022</span><div><strong>Graphic Designer and Editor</strong><span class="org">Northpoint Creative Agency</span></div></li>
+            <li><span class="yrs">2015 – 2018</span><div><strong>Junior Designer</strong><span class="org">In-house brand team, retail group</span></div></li>
+            <li><span class="yrs">2013 – 2015</span><div><strong>Freelance Video Editor</strong><span class="org">YouTube creators and local businesses</span></div></li>
           </ol>
         </div>
       </div>
@@ -799,6 +1062,8 @@ main,.contact{position:relative}
     </div>
   </section>
 </main>
+
+<div id="projectView" hidden></div>
 
 <footer class="contact" id="contact">
   <div class="wrap">
@@ -815,6 +1080,156 @@ main,.contact{position:relative}
 </footer>
 <button id="toTop" type="button" aria-label="Back to top"><svg class="ring" viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="24" stroke="var(--rule)"/><circle id="ttRing" cx="27" cy="27" r="24" stroke="var(--magenta)" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg><svg class="arrow" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 
+<script>
+/* ================= Client projects: data =================
+   Everything on the four project pages comes from this list. To update a project,
+   edit its entry here (or use the "Edit text" panel for wording). For media, set `src`
+   on a gallery item to an image, GIF or video URL; leave it '' to show a placeholder.
+   kind: 'image' (static, GIF, promo) or 'video' (videos, reels).
+   ratio: '4/5' portrait post, '1/1' square, '9/16' reel, '16/9' landscape. */
+window.PROJECTS=[
+  {id:'client-1',title:'[Client 1]',category:'Graphic Design & Video Editing',
+   agency:'MotivCS Design Agency',myRole:'UI/UX Designer',roleOnProject:'Lead Designer',
+   intro:'[Client 1 — project overview placeholder: briefly describe the client, their brand, the project\u2019s purpose, and the type of creative content produced.]',
+   overview:'[Client 1 — describe the client and the project\u2019s overall goals here. Explain what the client needed, the target audience, and the purpose of the creative content.]',
+   contribution:'[Client 1 — describe your responsibilities on this project here: design direction, visual concepts, content creation, revisions, collaboration, and final production work.]',
+   skills:['Lead Designer','Static Social Media Design','Animated Social Media Posts','Motion Graphics','Social Media Reels','Visual Content Creation','Brand Consistency'],
+   process:['[Client 1 — Concept: describe how the idea started.]','[Client 1 — Design: describe the layouts and visual direction.]','[Client 1 — Motion / Editing: describe the animation and editing work.]','[Client 1 — Final Production: describe exports, delivery and rollout.]'],
+   gallery:[
+     {kind:'image',type:'Static Design',label:'CLIENT 1 — STATIC DESIGN 01',title:'[Client 1 — Work Title 01]',desc:'[Client 1 — short description of this piece.]',ratio:'4/5',src:''},
+     {kind:'image',type:'Animated Post',label:'CLIENT 1 — ANIMATED POST 01',title:'[Client 1 — Work Title 02]',desc:'[Client 1 — short description of this animated post.]',ratio:'1/1',src:''},
+     {kind:'video',type:'Social Media Reel',label:'CLIENT 1 — SOCIAL MEDIA REEL 01',title:'[Client 1 — Work Title 03]',desc:'[Client 1 — short description of this reel.]',ratio:'9/16',src:''},
+     {kind:'image',type:'Static Design',label:'CLIENT 1 — STATIC DESIGN 02',title:'[Client 1 — Work Title 04]',desc:'[Client 1 — short description of this piece.]',ratio:'4/5',src:''},
+     {kind:'video',type:'Motion Graphic',label:'CLIENT 1 — MOTION GRAPHIC 01',title:'[Client 1 — Work Title 05]',desc:'[Client 1 — short description of this motion graphic.]',ratio:'16/9',src:''},
+     {kind:'image',type:'Promotional Graphic',label:'CLIENT 1 — PROMOTIONAL GRAPHIC 01',title:'[Client 1 — Work Title 06]',desc:'[Client 1 — short description of this promo graphic.]',ratio:'1/1',src:''}],
+   results:'[Client 1 — describe the outcome here: results, engagement, campaign performance or client feedback, if available.]',
+   info:{client:'[Client 1 Name]',agency:'MotivCS Design Agency',role:'UI/UX Designer / Lead Designer',services:'Graphic Design, Motion Design, Video Editing',year:'[Client 1 Year]',status:'[Completed / Ongoing]'}},
+
+  {id:'client-2',title:'[Client 2]',category:'Graphic Design & Video Editing',
+   agency:'MotivCS Design Agency',myRole:'UI/UX Designer',roleOnProject:'Lead Designer',
+   intro:'[Client 2 — project overview placeholder: briefly describe the client, their brand, the project\u2019s purpose, and the type of creative content produced.]',
+   overview:'[Client 2 — describe the client and the project\u2019s overall goals here. Explain what the client needed, the target audience, and the purpose of the creative content.]',
+   contribution:'[Client 2 — describe your responsibilities on this project here: design direction, visual concepts, content creation, revisions, collaboration, and final production work.]',
+   skills:['Lead Designer','Static Social Media Design','Visual Content Creation','Brand Consistency'],
+   process:['[Client 2 — Concept: describe how the idea started.]','[Client 2 — Design: describe the layouts and visual direction.]','[Client 2 — Motion / Editing: describe the animation and editing work.]','[Client 2 — Final Production: describe exports, delivery and rollout.]'],
+   gallery:[
+     {kind:'image',type:'Static Design',label:'CLIENT 2 — STATIC DESIGN 01',title:'[Client 2 — Work Title 01]',desc:'[Client 2 — short description of this piece.]',ratio:'4/5',src:''},
+     {kind:'image',type:'Static Design',label:'CLIENT 2 — STATIC DESIGN 02',title:'[Client 2 — Work Title 02]',desc:'[Client 2 — short description of this piece.]',ratio:'1/1',src:''},
+     {kind:'image',type:'Promotional Graphic',label:'CLIENT 2 — PROMOTIONAL GRAPHIC 01',title:'[Client 2 — Work Title 03]',desc:'[Client 2 — short description of this promo graphic.]',ratio:'16/9',src:''},
+     {kind:'image',type:'Static Design',label:'CLIENT 2 — STATIC DESIGN 03',title:'[Client 2 — Work Title 04]',desc:'[Client 2 — short description of this piece.]',ratio:'4/5',src:''}],
+   results:'[Client 2 — describe the outcome here: results, engagement, campaign performance or client feedback, if available.]',
+   info:{client:'[Client 2 Name]',agency:'MotivCS Design Agency',role:'UI/UX Designer / Lead Designer',services:'Graphic Design, Motion Design, Video Editing',year:'[Client 2 Year]',status:'[Completed / Ongoing]'}},
+
+  {id:'client-3',title:'[Client 3]',category:'Graphic Design & Video Editing',
+   agency:'MotivCS Design Agency',myRole:'UI/UX Designer',roleOnProject:'Lead Designer',
+   intro:'[Client 3 — project overview placeholder: briefly describe the client, their brand, the project\u2019s purpose, and the type of creative content produced.]',
+   overview:'[Client 3 — describe the client and the project\u2019s overall goals here. Explain what the client needed, the target audience, and the purpose of the creative content.]',
+   contribution:'[Client 3 — describe your responsibilities on this project here: design direction, visual concepts, content creation, revisions, collaboration, and final production work.]',
+   skills:['Lead Designer','Social Media Reels','Motion Graphics','Animated Social Media Posts','Brand Consistency'],
+   process:['[Client 3 — Concept: describe how the idea started.]','[Client 3 — Design: describe the layouts and visual direction.]','[Client 3 — Motion / Editing: describe the animation and editing work.]','[Client 3 — Final Production: describe exports, delivery and rollout.]'],
+   gallery:[
+     {kind:'video',type:'Social Media Reel',label:'CLIENT 3 — SOCIAL MEDIA REEL 01',title:'[Client 3 — Work Title 01]',desc:'[Client 3 — short description of this reel.]',ratio:'9/16',src:''},
+     {kind:'video',type:'Motion Graphic',label:'CLIENT 3 — MOTION GRAPHIC 01',title:'[Client 3 — Work Title 02]',desc:'[Client 3 — short description of this motion graphic.]',ratio:'16/9',src:''},
+     {kind:'image',type:'Animated Post',label:'CLIENT 3 — ANIMATED POST 01',title:'[Client 3 — Work Title 03]',desc:'[Client 3 — short description of this animated post.]',ratio:'1/1',src:''},
+     {kind:'video',type:'Social Media Reel',label:'CLIENT 3 — SOCIAL MEDIA REEL 02',title:'[Client 3 — Work Title 04]',desc:'[Client 3 — short description of this reel.]',ratio:'9/16',src:''},
+     {kind:'image',type:'Static Design',label:'CLIENT 3 — STATIC DESIGN 01',title:'[Client 3 — Work Title 05]',desc:'[Client 3 — short description of this piece.]',ratio:'4/5',src:''}],
+   results:'[Client 3 — describe the outcome here: results, engagement, campaign performance or client feedback, if available.]',
+   info:{client:'[Client 3 Name]',agency:'MotivCS Design Agency',role:'UI/UX Designer / Lead Designer',services:'Graphic Design, Motion Design, Video Editing',year:'[Client 3 Year]',status:'[Completed / Ongoing]'}},
+
+  {id:'client-4',title:'[Client 4]',category:'Graphic Design & Video Editing',
+   agency:'MotivCS Design Agency',myRole:'UI/UX Designer',roleOnProject:'Lead Designer',
+   intro:'[Client 4 — project overview placeholder: briefly describe the client, their brand, the project\u2019s purpose, and the type of creative content produced.]',
+   overview:'[Client 4 — describe the client and the project\u2019s overall goals here. Explain what the client needed, the target audience, and the purpose of the creative content.]',
+   contribution:'[Client 4 — describe your responsibilities on this project here: design direction, visual concepts, content creation, revisions, collaboration, and final production work.]',
+   skills:['Lead Designer','Static Social Media Design','Animated Social Media Posts','Motion Graphics','Visual Content Creation'],
+   process:['[Client 4 — Concept: describe how the idea started.]','[Client 4 — Design: describe the layouts and visual direction.]','[Client 4 — Motion / Editing: describe the animation and editing work.]','[Client 4 — Final Production: describe exports, delivery and rollout.]'],
+   gallery:[
+     {kind:'image',type:'Promotional Graphic',label:'CLIENT 4 — PROMOTIONAL GRAPHIC 01',title:'[Client 4 — Work Title 01]',desc:'[Client 4 — short description of this promo graphic.]',ratio:'16/9',src:''},
+     {kind:'image',type:'Static Design',label:'CLIENT 4 — STATIC DESIGN 01',title:'[Client 4 — Work Title 02]',desc:'[Client 4 — short description of this piece.]',ratio:'4/5',src:''},
+     {kind:'image',type:'Animated Post',label:'CLIENT 4 — ANIMATED POST 01',title:'[Client 4 — Work Title 03]',desc:'[Client 4 — short description of this animated post.]',ratio:'1/1',src:''},
+     {kind:'video',type:'Motion Graphic',label:'CLIENT 4 — MOTION GRAPHIC 01',title:'[Client 4 — Work Title 04]',desc:'[Client 4 — short description of this motion graphic.]',ratio:'16/9',src:''},
+     {kind:'image',type:'Static Design',label:'CLIENT 4 — STATIC DESIGN 02',title:'[Client 4 — Work Title 05]',desc:'[Client 4 — short description of this piece.]',ratio:'4/5',src:''}],
+   results:'[Client 4 — describe the outcome here: results, engagement, campaign performance or client feedback, if available.]',
+   info:{client:'[Client 4 Name]',agency:'MotivCS Design Agency',role:'UI/UX Designer / Lead Designer',services:'Graphic Design, Motion Design, Video Editing',year:'[Client 4 Year]',status:'[Completed / Ongoing]'}}
+];
+
+/* ================= Client projects: render =================
+   All four pages are built from PROJECTS before the text editor and animations run,
+   so their text is editable and they use the same reveal effects as the main page. */
+(function(){
+  const host=document.getElementById('projectView');if(!host)return;
+  const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const icon={image:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M4 18l5-5 4 4 3-3 4 4"/></svg>',
+              video:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5z"/></svg>'};
+  const steps=['Concept','Design','Motion / Editing','Final Production'];
+  // group the many work types into three scan-friendly categories
+  const catOf=it=>/\b(reel|motion|video)\b/i.test(it.type)||it.kind==='video'?'video':/\b(animat\w*|gif)\b/i.test(it.type)?'animated':'static';
+  const catName={static:'Static',animated:'Animated',video:'Video'};
+  // tile shape in the grid (columns x rows); the first piece is featured larger
+  const span=(it,i)=>{const r=it.ratio||'4/5';
+    if(i===0)return r==='9/16'?'c1 r3':r==='16/9'?'c2 r2':r==='1/1'?'c2 r3':'c2 r4';
+    return r==='16/9'?'c2 r2':r==='9/16'?'c1 r3':'c1 r2';};
+  function media(it){
+    const label=`[${esc(it.label)}]`;
+    if(it.src&&it.kind==='video')
+      return `<div class="pg-media"><video src="${esc(it.src)}" controls muted playsinline preload="metadata" aria-label="${esc(it.title)}"></video></div>`;
+    if(it.src)
+      return `<button class="pg-media pg-zoom" type="button" aria-label="View full size: ${esc(it.title)}"><img src="${esc(it.src)}" alt="${esc(it.title)}" loading="lazy"><span class="pg-hint" aria-hidden="true">View</span></button>`;
+    return `<button class="pg-media pg-zoom pg-ph" type="button" aria-label="View larger: ${esc(it.label)} placeholder">
+      <span class="pg-ph-ico">${icon[it.kind]||icon.image}</span><span class="pg-ph-lbl">${label}</span><span class="pg-ph-note">Insert ${it.kind==='video'?'video':'image'} here</span></button>`;
+  }
+  function gallery(p){
+    const cats=['static','animated','video'].map(c=>[c,p.gallery.filter(it=>catOf(it)===c).length]).filter(([,n])=>n);
+    const filters=cats.length>1?`<div class="pg-filters" role="toolbar" aria-label="Filter work">
+      <button type="button" class="pg-f on" data-f="all" aria-pressed="true">All <span>${p.gallery.length}</span></button>
+      ${cats.map(([c,n])=>`<button type="button" class="pg-f" data-f="${c}" aria-pressed="false"><i class="pg-dot ${c}"></i>${catName[c]} <span>${n}</span></button>`).join('')}</div>`:'';
+    return filters+`<div class="pj-gallery">${p.gallery.map((it,i)=>`<figure class="pg-item ${span(it,i)}${i===0?' featured':''}" data-cat="${catOf(it)}" data-ratio="${esc(it.ratio||'4/5')}">
+      ${media(it)}<span class="pg-badge ${catOf(it)}">${esc(it.type)}</span>
+      <figcaption><strong>${esc(it.title)}</strong><span class="pg-desc">${esc(it.desc)}</span></figcaption></figure>`).join('')}</div>`;
+  }
+  host.innerHTML=PROJECTS.map((p,i)=>{
+    const prev=PROJECTS[(i+PROJECTS.length-1)%PROJECTS.length],next=PROJECTS[(i+1)%PROJECTS.length];
+    return `<article class="project" data-project="${p.id}" hidden aria-labelledby="${p.id}-h">
+  <div class="wrap">
+    <a class="pj-back" href="#work">\u2190 Back to Projects</a>
+    <header class="pj-head">
+      <p class="pj-cat">${esc(p.category)}</p>
+      <h1 class="display split pj-title" id="${p.id}-h">${esc(p.title)}</h1>
+      <dl class="facts rise pj-facts"><dt>Created at</dt><dd>${esc(p.agency)}</dd><dt>My Role</dt><dd>${esc(p.myRole)}</dd><dt>Role on Project</dt><dd>${esc(p.roleOnProject)}</dd></dl>
+      <p class="pj-intro rise">${esc(p.intro)}</p>
+    </header>
+  </div>
+  <section class="block pj-sec"><div class="wrap pj-two">
+    <h2 class="display split">Project Overview</h2><p class="rise">${esc(p.overview)}</p>
+  </div></section>
+  <section class="block pj-sec"><div class="wrap pj-two">
+    <h2 class="display split">My Contribution</h2>
+    <div><p class="rise">${esc(p.contribution)}</p><ul class="pj-skills rise">${p.skills.map(s=>`<li>${esc(s)}</li>`).join('')}</ul></div>
+  </div></section>
+  <section class="block pj-sec"><div class="wrap">
+    <div class="head"><h2 class="display split">Client Work Gallery</h2><p class="rise">Static designs, animated posts, reels and motion graphics made for this client. Select any piece to view it full size.</p></div>
+    ${gallery(p)}
+  </div></section>
+  <section class="block pj-sec pj-results"><div class="wrap pj-two">
+    <h2 class="display split">Results &amp; Impact</h2><p class="rise">${esc(p.results)}</p>
+  </div></section>
+  <section class="block pj-sec"><div class="wrap">
+    <dl class="pj-info rise">
+      <div><dt>Client</dt><dd>${esc(p.info.client)}</dd></div><div><dt>Agency</dt><dd>${esc(p.info.agency)}</dd></div>
+      <div><dt>Role</dt><dd>${esc(p.info.role)}</dd></div><div><dt>Services</dt><dd>${esc(p.info.services)}</dd></div>
+      <div><dt>Year</dt><dd>${esc(p.info.year)}</dd></div><div><dt>Status</dt><dd>${esc(p.info.status)}</dd></div>
+    </dl>
+  </div></section>
+  <nav class="pj-nav wrap" aria-label="Project navigation">
+    <a class="btn line" href="#work">\u2190 Back to Projects</a>
+    <div class="pj-pn">
+      <a class="pj-pn-link" href="#/projects/${prev.id}"><span>Previous Project</span><strong>${esc(prev.title)}</strong></a>
+      <a class="pj-pn-link pj-next" href="#/projects/${next.id}"><span>Next Project</span><strong>${esc(next.title)}</strong></a>
+    </div>
+  </nav>
+</article>`;}).join('');
+})();
+</script>
 <script>
 /* ================= Text editor =================
    Every piece of visible text can be changed from an "Edit text" panel (owner only).
@@ -838,7 +1253,7 @@ main,.contact{position:relative}
   nodes.forEach(o=>{if(texts[o.orig]!=null&&texts[o.orig]!==o.orig){swap(o.node,o.orig,texts[o.orig]);o.cur=texts[o.orig];}else o.cur=o.orig;});
   // the name also lives in an attribute used by an effect
   const nameEl=document.querySelector('.reg');if(nameEl&&texts['Jheyvens'])nameEl.setAttribute('data-text',texts['Jheyvens']);
-  if(texts['Jheyvens — Senior Graphic Artist'])document.title=texts['Jheyvens — Senior Graphic Artist'];
+  if(texts[document.title])document.title=texts[document.title];
 
   /* ---------- editor UI (shown only to someone who can save this page) ---------- */
   const css=document.createElement('style');css.textContent=`
@@ -1312,17 +1727,49 @@ function paintArt(){
 
   /* 1. Preloader */
   const loader=document.getElementById('loader'),cnt=document.getElementById('ldCount');
+  // expoInOut: slow start, decisive middle, soft landing
+  const expoInOut=t=>t<=0?0:t>=1?1:t<.5?Math.pow(2,20*t-10)/2:(2-Math.pow(2,-20*t+10))/2;
+  function openLogo(){
+    // place the window exactly over the logo on screen, then grow it about a point inside the lower stroke
+    const svg=loader.querySelector('.ld-logo'),r=svg.getBoundingClientRect();
+    const sc=r.width/1342, ox=r.left-329*sc, oy=r.top-475*sc;      // viewBox "329 475 1342 1048"
+    const zx=1000, zy=1413;                                         // middle of the lower chevron's thickest part
+    const fx=ox+zx*sc, fy=oy+zy*sc;                                // that point on screen now
+    const half=Math.hypot(innerWidth,innerHeight);                // enough to clear any aspect ratio
+    const K=Math.max(8,half/(70*sc));                               // stroke half-thickness is ~70 logo units
+    const zooms=[...loader.querySelectorAll('.ld-zoom')],face=loader.querySelector('.ld-face');
+    loader.classList.add('opening');loader.classList.add('done');   // page animations begin as the window opens
+    const D=950,t0=performance.now();
+    (function frame(now){
+      const t=Math.min(1,(now-t0)/D),e=expoInOut(t);
+      const k=Math.exp(Math.log(K)*e);                              // exponential growth reads as constant speed
+      const m=1-Math.pow(1-Math.min(1,t/.85),3);                   // drift the focal point to screen center
+      const cx=fx+(innerWidth/2-fx)*m, cy=fy+(innerHeight/2-fy)*m;
+      const s=sc*k, tx=cx-zx*s, ty=cy-zy*s;
+      const tr=`translate(${tx.toFixed(2)} ${ty.toFixed(2)}) scale(${s.toFixed(5)})`;
+      zooms.forEach(g=>g.setAttribute('transform',tr));
+      face.style.opacity=(1-Math.min(1,t/.32)).toFixed(3);         // the solid logo turns into the window
+      if(t<1)requestAnimationFrame(frame);else loader.remove();
+    })(t0);
+    // first frame: show the solid logo in the exact spot the animated one occupied
+    zooms.forEach(g=>g.setAttribute('transform',`translate(${ox.toFixed(2)} ${oy.toFixed(2)}) scale(${sc.toFixed(5)})`));
+    face.style.opacity=1;
+  }
   if(loader&&!reduce){
-    const t0=performance.now(),min=1300;let ready=false;
+    const t0=performance.now(),min=1500;let ready=false;const ldBar=document.getElementById('ldBar');
     (document.fonts?document.fonts.ready:Promise.resolve()).then(()=>ready=true);
     setTimeout(()=>ready=true,2500);
+    scrollTo(0,0);
     (function step(now){
       const p=clamp((now-t0)/min);const shown=ready?p:Math.min(p,.9);
-      cnt.textContent=Math.round((1-Math.pow(1-shown,2))*100);
+      const pct=1-Math.pow(1-shown,2);cnt.textContent=Math.round(pct*100);if(ldBar)ldBar.style.transform=`scaleX(${pct.toFixed(3)})`;
       if(shown<1){requestAnimationFrame(step);}
-      else{loader.classList.add('done');setTimeout(()=>loader.remove(),1100);}
+      else{openLogo();}
     })(t0);
-  }else if(loader){loader.remove();}
+  }else if(loader){
+    // reduced motion: the logo shows briefly, then the splash simply fades away
+    setTimeout(()=>{loader.classList.add('done');loader.classList.add('fading');setTimeout(()=>loader.remove(),500);},700);
+  }
 
   /* 2. Text scramble on nav links */
   const glyphs='ABCDEFGHJKLMNPQRSTUVWXYZ#%&*+=?';
@@ -1462,7 +1909,7 @@ function paintArt(){
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-/* ================= Chrome star portal =================
+/* ================= Logo portal (was the chrome star) =================
    A four-point chrome star (three.js) sits at the center. Scroll turns it slowly in 3D while
    reflections sweep across the chrome. Light trails appear inside its silhouette, the star
    becomes the mask, the camera moves through it, and the trails take over the screen.
@@ -1477,7 +1924,7 @@ function paintArt(){
   const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
 
   const jump=document.getElementById('jump'),cv=document.getElementById('heart3d'),
-        box=document.getElementById('pContent'),intro=document.getElementById('pIntro'),cue=document.getElementById('pCue'),
+        box=document.getElementById('pContent'),intro_el=document.getElementById('pIntro'),cue=document.getElementById('pCue'),
         flash=document.getElementById('jumpFlash'),meter=document.getElementById('pMeter');
   const slides=[...box.querySelectorAll('.slide')].map(el=>({el,a:+el.dataset.from,b:+el.dataset.to}));
 
@@ -1505,15 +1952,13 @@ function paintArt(){
     t2.globalAlpha=1;t2.globalCompositeOperation='source-over';
   }
 
-  /* ---------- four-point star outline (concave sides), tips at radius 1 ---------- */
-  function starPoints(scale,per=40,pinch=.2){
-    const tips=[[0,1],[1,0],[0,-1],[-1,0]],pts=[];
-    for(let i=0;i<4;i++){const a=tips[i],b=tips[(i+1)%4];
-      const c=[(a[0]+b[0])*pinch,(a[1]+b[1])*pinch];        // control point pulled toward the center
-      for(let k=0;k<per;k++){const t=k/per,u=1-t;
-        pts.push([(u*u*a[0]+2*u*t*c[0]+t*t*b[0])*scale,(u*u*a[1]+2*u*t*c[1]+t*t*b[1])*scale]);}}
-    return pts;
-  }
+  /* ---------- the logo (exact geometry from the brand mark), in world units ---------- */
+  // two strokes of the mark; centered on the mark's middle, about 2 units wide, y up
+  const LOGO=[[[349,495],[1000,975],[1651,495],[1651,673],[1000,1155],[499,782],[499,1503],[349,1401]],
+              [[642,1061],[1000,1323],[1651,833],[1651,1009],[1000,1503],[642,1235]]];
+  const U=650,CX=1000,CY=999;
+  const toW=([x,y])=>[(x-CX)/U,-(y-CY)/U];
+  const FOCUS=toW([1000,1413]);   // middle of the lower stroke: where the camera goes through
 
   /* ---------- 3D scene ---------- */
   let gl=null;
@@ -1529,8 +1974,7 @@ function paintArt(){
     const scene=new THREE.Scene();
     const camera=new THREE.PerspectiveCamera(35,1,.01,200);
 
-    // reflection environment: a dark studio with soft cyan, blue, violet and white light panels,
-    // baked once into a prefiltered map so the chrome has real reflections to show
+    // reflection environment for the edges (same studio as before)
     const envScene=new THREE.Scene();
     const room=new THREE.Mesh(new THREE.SphereGeometry(20,48,24),new THREE.MeshBasicMaterial({side:THREE.BackSide,vertexColors:true}));
     const cols=[],pos=room.geometry.attributes.position,c=new THREE.Color();
@@ -1538,48 +1982,52 @@ function paintArt(){
     room.geometry.setAttribute('color',new THREE.Float32BufferAttribute(cols,3));envScene.add(room);
     const panel=(col,w,h,x,y,z)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:col,side:THREE.DoubleSide}));
       m.position.set(x,y,z);m.lookAt(0,0,0);envScene.add(m);};
-    panel(0xFFFFFF,10,3,0,12,6);  panel(0x7FE7FF,6,14,-14,2,4); panel(0x6F7BFF,6,14,14,-1,2);
-    panel(0xC9A8FF,12,4,4,-12,-6); panel(0xFFFFFF,3,8,-6,6,-14); panel(0x3FA2FF,10,6,10,8,-10);
+    panel(0xFFFFFF,10,3,0,12,6);  panel(0x7FE7FF,6,14,-14,2,4); panel(0x4AB9FF,6,14,14,-1,2);
+    panel(0xBFE8FF,12,4,4,-12,-6); panel(0xFFFFFF,3,8,-6,6,-14); panel(0x2CDFFF,10,6,10,8,-10);
     const pmrem=new THREE.PMREMGenerator(renderer);
-    const envTex=pmrem.fromScene(envScene,.02).texture;scene.environment=envTex;
+    scene.environment=pmrem.fromScene(envScene,.02).texture;
 
-    // chrome tube that traces the star outline
-    const outline=starPoints(1,60).map(([x,y])=>new THREE.Vector3(x,y,0));
-    const curve=new THREE.CatmullRomCurve3(outline,true,'centripetal',.5);
-    const tubeGeo=new THREE.TubeGeometry(curve,small?300:480,.085,small?16:24,true);
-    const chrome=new THREE.MeshPhysicalMaterial({color:0xD6E6FF,metalness:1,roughness:.07,envMapIntensity:1.6,
-      clearcoat:1,clearcoatRoughness:.05,transparent:true,opacity:1});
-    const tube=new THREE.Mesh(tubeGeo,chrome);
-
-    // the mask: a window in the star's shape that carries the light trails
-    const sh=new THREE.Shape();starPoints(.985,60).forEach(([x,y],i)=>i?sh.lineTo(x,y):sh.moveTo(x,y));
-    const win=new THREE.ShapeGeometry(sh);
-    const uv=win.attributes.uv,wp=win.attributes.position;
-    for(let i=0;i<wp.count;i++)uv.setXY(i,(wp.getX(i)+1)/2,(wp.getY(i)+1)/2);
+    // face texture: starts as the logo's own gradient, then the light trails show through it
     const tex=new THREE.CanvasTexture(tc);tex.encoding=THREE.sRGBEncoding;tex.anisotropy=4;
-    const winMat=new THREE.MeshBasicMaterial({map:tex,transparent:true,opacity:0,depthWrite:false,side:THREE.DoubleSide});
-    const winMesh=new THREE.Mesh(win,winMat);winMesh.renderOrder=1;
+    tex.wrapS=tex.wrapT=THREE.ClampToEdgeWrapping;   // face uv = world xy; framing is set each frame
+    const faceMat=new THREE.MeshBasicMaterial({map:tex,transparent:true});
+    const edgeMat=new THREE.MeshPhysicalMaterial({color:new THREE.Color(0x4AB9FF).convertSRGBToLinear(),metalness:1,roughness:.12,
+      envMapIntensity:1.5,clearcoat:1,clearcoatRoughness:.06,transparent:true,opacity:1});
+    const DEPTH=.11;
+    const logo=new THREE.Group();
+    LOGO.forEach(pts=>{
+      const sh=new THREE.Shape();pts.map(toW).forEach(([x,y],i)=>i?sh.lineTo(x,y):sh.moveTo(x,y));
+      const g=new THREE.ExtrudeGeometry(sh,{depth:DEPTH,bevelEnabled:true,bevelThickness:.018,bevelSize:.012,bevelSegments:3});
+      g.translate(0,0,-DEPTH/2);
+      logo.add(new THREE.Mesh(g,[faceMat,edgeMat]));            // group 0: front/back faces, group 1: sides
+    });
+    scene.add(logo);
 
-    // soft glow behind the star
+    // soft glow behind the mark
     const gc=document.createElement('canvas');gc.width=gc.height=256;const gx=gc.getContext('2d');
-    const gg=gx.createRadialGradient(128,128,0,128,128,128);gg.addColorStop(0,'rgba(90,140,255,.8)');gg.addColorStop(.3,'rgba(50,90,255,.28)');gg.addColorStop(1,'rgba(0,0,0,0)');
+    const gg=gx.createRadialGradient(128,128,0,128,128,128);gg.addColorStop(0,'rgba(74,185,255,.8)');gg.addColorStop(.3,'rgba(44,223,255,.25)');gg.addColorStop(1,'rgba(0,0,0,0)');
     gx.fillStyle=gg;gx.fillRect(0,0,256,256);
     const glowMat=new THREE.SpriteMaterial({map:new THREE.CanvasTexture(gc),blending:THREE.AdditiveBlending,transparent:true,opacity:0,depthWrite:false});
-    const glow=new THREE.Sprite(glowMat);glow.scale.set(4.4,4.4,1);glow.position.z=-.3;glow.renderOrder=0;scene.add(glow);
+    const glow=new THREE.Sprite(glowMat);glow.scale.set(4.6,4.6,1);glow.position.z=-.4;scene.add(glow);
 
-    const star=new THREE.Group();star.add(tube);star.add(winMesh);scene.add(star);
-
-    // moving lights put travelling highlights on the chrome as you scroll
     const keyL=new THREE.PointLight(0xFFFFFF,2.2,30);scene.add(keyL);
     const rimL=new THREE.PointLight(0x7FE7FF,1.6,30);scene.add(rimL);
     scene.add(new THREE.AmbientLight(0x223355,.4));
 
     function resize(){renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();}
     addEventListener('resize',resize);resize();
-    return {renderer,scene,camera,star,tube,chrome,winMat,glowMat,keyL,rimL,tex};
+    return {renderer,scene,camera,logo,edgeMat,glowMat,keyL,rimL,tex};
   }
 
-  /* ---------- frame loop: redraws only when the eased scroll position changes ---------- */
+  // the face: logo gradient on top, trails underneath, crossfaded by `reveal`
+  function drawFace(travel,len,size,reveal){
+    drawTrails(travel,len,size);
+    const a=1-reveal;if(a<=0)return;
+    const g=t2.createLinearGradient(0,0,TEX,TEX);g.addColorStop(0,'#4AB9FF');g.addColorStop(1,'#2CDFFF');
+    t2.globalAlpha=a;t2.fillStyle=g;t2.fillRect(0,0,TEX,TEX);t2.globalAlpha=1;
+  }
+
+  /* ---------- frame loop: everything follows the eased scroll position ---------- */
   let jVisible=false;new IntersectionObserver(es=>jVisible=es[0].isIntersecting).observe(jump);
   let sp=0,lastP=-1,drawnKey='',lastT=performance.now();
   const tanHalf=Math.tan((35/2)*Math.PI/180);
@@ -1593,22 +2041,22 @@ function paintArt(){
     sp+=(raw-sp)*(1-Math.exp(-dt*7));if(Math.abs(raw-sp)<.0002)sp=raw;
     const p=sp,dp=Math.abs(p-lastP);lastP=p;
 
-    // stage 1 (0 to .45): star centered, turning slowly; stage 2 (.3 to .7): trails rise inside it;
-    // stage 3 (.5 to 1): camera pushes through the star until the trails fill the screen
-    const startPx=Math.min(340,innerWidth*.62,innerHeight*.52);           // star tip-to-tip on screen at the start
+    // 01 intro (0-.15): the mark eases up out of the dark
+    // 02 focus (.1-.45): it turns gently to show its depth; light travels across the edges
+    // 03 expansion + 04 mask (.3-.92): the faces become windows onto the light trails and the camera
+    //    pushes into the lower stroke until it fills the screen
+    // 05 reveal (.92-1): the trails hand over to the work
+    const startPx=Math.min(300,innerWidth*.56,innerHeight*.42);
     const d0=(2*(innerHeight/2))/(startPx*tanHalf);
-    const push=ease(clamp((p-.38)/.52));
-    const dist=lerp(d0,.18,push*push*.15+push*.85);
-    const turn=ease(clamp(p/.62));
-    const rotY=turn*Math.PI*2*.75+Math.sin(p*Math.PI*1.3)*.22*(1-push);   // three-quarter turn plus a gentle sway
-    const rotX=.32*(1-turn)+Math.sin(p*Math.PI*2)*.12*(1-push);
-    const rotZ=.3*(1-turn)+turn*Math.PI*.5*.25;
-    // finish face-on so the window lines up with the camera as we go through
-    const face=smooth(clamp((p-.45)/.2));
-    const ry=lerp(rotY,Math.round(rotY/(Math.PI))*Math.PI,face), rx=lerp(rotX,0,face);
-    const reveal=smooth(clamp((p-.22)/.35));                                // trails emerge inside the star
-    const dissolve=smooth(clamp((p-.62)/.22));                              // chrome dissolves as we pass through
-    const glowK=Math.sin(clamp(p/.75)*Math.PI)*.9+reveal*.25;
+    const intro=smooth(clamp(p/.15));
+    const push=ease(clamp((p-.34)/.58));
+    const dist=lerp(d0*1.18,d0,intro)*Math.pow(.09/d0,push);         // exponential approach
+    const settle=1-smooth(clamp((p-.2)/.25));
+    const ry=Math.sin(clamp(p/.45)*Math.PI*1.5)*.42*settle;
+    const rx=.16*settle*(1-intro*.4);
+    const reveal=smooth(clamp((p-.24)/.3));
+    const dissolve=smooth(clamp((p-.7)/.18));
+    const glowK=intro*(.55+.45*Math.sin(clamp(p/.6)*Math.PI))*(1-dissolve);
 
     const travel=p*5+p*p*11;
     const len=.12+p*.16+Math.min(.5,dp*26);
@@ -1617,37 +2065,42 @@ function paintArt(){
     const key=[p.toFixed(5),len.toFixed(4),innerWidth,innerHeight].join();
     if(key!==drawnKey){
       drawnKey=key;
-      if(reveal>0)drawTrails(travel,len,size);
+      drawFace(travel,len,size,reveal);
       if(gl){
         gl.tex.needsUpdate=true;
-        gl.star.rotation.set(rx,ry,rotZ);
-        gl.winMat.opacity=reveal*(.35+.65*smooth(clamp((p-.32)/.3)));
-        gl.chrome.opacity=1-dissolve;gl.chrome.depthWrite=dissolve<.05;
-        gl.chrome.envMapIntensity=1.4+glowK*.8;
-        gl.glowMat.opacity=glowK*(1-dissolve)*.32;
-        // lights orbit with scroll so highlights glide across the chrome
+        gl.logo.rotation.set(rx,ry,0);
+        gl.logo.scale.setScalar(lerp(.92,1,intro));
+        gl.edgeMat.opacity=intro*(1-dissolve);gl.edgeMat.depthWrite=dissolve<.05;
+        gl.edgeMat.envMapIntensity=1.3+glowK*.8;
+        gl.glowMat.opacity=glowK*.35;
         const a=p*Math.PI*3;
         gl.keyL.position.set(Math.cos(a)*4,2.5+Math.sin(a*.7),3+Math.sin(a)*2);
         gl.rimL.position.set(-Math.cos(a+1.6)*4,-2+Math.cos(a)*1.5,2.5);
-        gl.camera.position.set(0,0,dist);gl.camera.lookAt(0,0,0);
+        // aim drifts from the mark's center to the point inside the lower stroke as we push in
+        const fx=FOCUS[0]*push,fy=FOCUS[1]*push;
+        gl.camera.position.set(fx,fy,dist);gl.camera.lookAt(fx,fy,0);
+        // keep the trails texture framed on what the camera sees, so it stays sharp all the way in
+        const view=2*dist*tanHalf*Math.max(innerWidth/innerHeight,1)*1.08,Sd=Math.max(view,.05);
+        gl.tex.repeat.set(1/Sd,1/Sd);gl.tex.offset.set(.5-fx/Sd,.5-fy/Sd);
+        gl.renderer.domElement.style.opacity=intro.toFixed(3);
         gl.renderer.render(gl.scene,gl.camera);
       }
     }
 
-    // text sits in the star's window when it faces you
-    const winPx=1.3*(innerHeight/2)/(Math.max(.05,dist)*tanHalf);
+    // text sits over the mark once the trails show through it, readable while it faces you
+    const markPx=2*(innerHeight/2)/(Math.max(.05,dist)*tanHalf);
     const facing=Math.abs(Math.cos(ry))*(1-Math.abs(Math.sin(rx)));
-    const bw=Math.min(winPx*.55,innerWidth*.8),bh=Math.min(winPx*.42,innerHeight*.62);
+    const bw=Math.min(markPx*.6,innerWidth*.8),bh=Math.min(markPx*.45,innerHeight*.62);
     box.style.left=(innerWidth/2-bw/2)+'px';box.style.top=(innerHeight/2-bh/2)+'px';box.style.width=bw+'px';box.style.height=bh+'px';
-    box.style.opacity=(clamp((winPx-170)/150)*clamp((facing-.6)/.3)*reveal).toFixed(3);
+    box.style.opacity=(clamp((markPx-200)/160)*clamp((facing-.6)/.3)*reveal).toFixed(3);
     for(const s of slides){
       const t=clamp((p-s.a)/(s.b-s.a)),vis=t<=0||t>=1?0:Math.min(1,t/.2,(1-t)/.2);
       s.el.style.opacity=vis.toFixed(3);
       s.el.style.transform=`translateY(${(1-t*2)*14}px) scale(${.94+t*.12})`;
       s.el.style.filter=`blur(${((1-vis)*6).toFixed(1)}px)`;
     }
-    intro.style.opacity=(1-clamp(p/.1)).toFixed(3);
-    intro.style.transform=`translateY(${-clamp(p/.1)*30}px)`;
+    intro_el.style.opacity=(1-clamp(p/.1)).toFixed(3);
+    intro_el.style.transform=`translateY(${-clamp(p/.1)*30}px)`;
     cue.style.opacity=(1-clamp(p/.06)).toFixed(3);
     meter.style.transform=`scaleX(${p})`;
     flash.style.opacity=clamp((p-.95)/.05).toFixed(3);
@@ -1750,6 +2203,132 @@ function paintArt(){
     el.style.setProperty('--dx',(cx*14).toFixed(2)+'px');el.style.setProperty('--dy',(cy*8).toFixed(2)+'px');
     requestAnimationFrame(loop);
   })(last);
+})();
+</script>
+<script>
+/* ================= Mobile menu + touch wording ================= */
+(function(){
+  const btn=document.getElementById('menuBtn'),nav=document.getElementById('mobileNav');
+  if(btn&&nav){
+    const close=()=>{btn.setAttribute('aria-expanded','false');btn.setAttribute('aria-label','Open menu');nav.classList.remove('open');
+      document.body.classList.remove('menu-open');setTimeout(()=>{if(btn.getAttribute('aria-expanded')==='false')nav.hidden=true;},350);};
+    const open=()=>{nav.hidden=false;requestAnimationFrame(()=>nav.classList.add('open'));btn.setAttribute('aria-expanded','true');
+      btn.setAttribute('aria-label','Close menu');document.body.classList.add('menu-open');nav.querySelector('a').focus({preventScroll:true});};
+    btn.addEventListener('click',()=>btn.getAttribute('aria-expanded')==='true'?close():open());
+    nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));
+    addEventListener('keydown',e=>{if(e.key==='Escape'&&btn.getAttribute('aria-expanded')==='true'){close();btn.focus();}});
+    matchMedia('(min-width:901px)').addEventListener('change',e=>{if(e.matches)close();});
+  }
+  // on touch screens there is no hovering, so the hint says "tap"
+  if(matchMedia('(pointer:coarse)').matches){
+    const hint=document.querySelector('.name-hint');
+    if(hint&&/^Move over my name, or click it\.$/.test(hint.textContent.trim()))hint.textContent='Tap my name.';
+  }
+})();
+</script>
+<script>
+/* ================= Project routes + lightbox =================
+   #/projects/client-1 ... client-4 open a project page; any other link (#work, #about, ...)
+   returns to the portfolio. A quick curtain wipe covers the swap. */
+(function(){
+  const main=document.querySelector('main'),view=document.getElementById('projectView'),wipe=document.getElementById('pageWipe');
+  if(!main||!view)return;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ids=(window.PROJECTS||[]).map(p=>p.id);
+  const baseTitle=document.title;
+  let current=null,first=true;
+
+  // the four cards on the main page open their project
+  document.querySelectorAll('#work .case').forEach((c,i)=>{
+    const id=ids[i];if(!id)return;
+    const go=()=>{location.hash='#/projects/'+id;};
+    const fig=c.querySelector('figure'),h3=c.querySelector('h3');
+    [fig,h3].forEach(el=>{if(!el)return;el.style.cursor='pointer';el.addEventListener('click',go);});
+    const res=c.querySelector('.result');
+    if(res&&!c.querySelector('.case-link')){
+      const a=document.createElement('a');a.className='btn line case-link';a.href='#/projects/'+id;a.textContent='View project \u2192';
+      res.insertAdjacentElement('afterend',a);
+    }
+  });
+
+  function show(route){
+    const m=/^#\/projects\/([\w-]+)$/.exec(route);
+    const id=m&&ids.includes(m[1])?m[1]:null;
+    if(id){
+      main.hidden=true;view.hidden=false;
+      view.querySelectorAll('.project').forEach(a=>a.hidden=a.dataset.project!==id);
+      const p=PROJECTS.find(x=>x.id===id);
+      const h=view.querySelector(`[data-project="${id}"] h1`);
+      document.title=(h?(h.getAttribute('aria-label')||h.textContent):p.title)+' \u2014 '+baseTitle.split(' \u2014 ')[0];
+      scrollTo({top:0,behavior:'instant'});
+      setTimeout(()=>view.querySelector(`[data-project="${id}"] .pj-back`)?.focus({preventScroll:true}),60);
+    }else{
+      if(!main.hidden&&!current){ /* already on the main page */ }
+      view.hidden=true;main.hidden=false;document.title=baseTitle;
+      const target=route&&route.length>1?document.getElementById(route.slice(1)):null;
+      if(current||target){
+        // let layout settle (scroll scenes measure themselves) before jumping to the section
+        requestAnimationFrame(()=>requestAnimationFrame(()=>{
+          if(target)scrollTo({top:target.getBoundingClientRect().top+scrollY-70,behavior:'instant'});
+          dispatchEvent(new Event('resize'));
+        }));
+      }
+    }
+    current=id;
+  }
+
+  function navigate(){
+    const route=location.hash;
+    const entering=/^#\/projects\//.test(route), leaving=!!current;
+    if(first||reduce||(!entering&&!leaving)){first=false;show(route);return;}
+    wipe.classList.remove('out');wipe.classList.add('in');
+    setTimeout(()=>{show(route);wipe.classList.remove('in');wipe.classList.add('out');},380);
+  }
+  addEventListener('hashchange',navigate);
+  navigate();
+
+  /* ---------- gallery filters ---------- */
+  view.addEventListener('click',e=>{
+    const f=e.target.closest('.pg-f');if(!f)return;
+    const bar=f.parentElement,gal=bar.nextElementSibling,want=f.dataset.f;
+    bar.querySelectorAll('.pg-f').forEach(b=>{const on=b===f;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);});
+    gal.querySelectorAll('.pg-item').forEach(it=>{it.hidden=want!=='all'&&it.dataset.cat!==want;});
+  });
+
+  /* ---------- lightbox: full-size view, arrow through the visible pieces ---------- */
+  const lb=document.getElementById('lightbox'),lbBody=lb.querySelector('.lb-body'),lbClose=lb.querySelector('.lb-close'),
+        lbPrev=lb.querySelector('.lb-prev'),lbNext=lb.querySelector('.lb-next'),
+        lbType=lb.querySelector('.lb-type'),lbTitle=lb.querySelector('.lb-title'),lbDesc=lb.querySelector('.lb-desc'),lbCount=lb.querySelector('.lb-count');
+  let lastFocus=null,list=[],idx=0;
+  function render(){
+    const fig=list[idx],b=fig.querySelector('.pg-zoom');
+    lbBody.innerHTML='';
+    const img=b.querySelector('img');
+    if(img){const big=new Image();big.src=img.src;big.alt=img.alt;big.className='lb-img';lbBody.appendChild(big);}
+    else{const clone=b.cloneNode(true);clone.className='pg-ph lb-ph';clone.removeAttribute('aria-label');clone.setAttribute('tabindex','-1');
+      clone.style.aspectRatio=fig.dataset.ratio||'4/5';lbBody.appendChild(clone);}
+    lbType.textContent=fig.querySelector('.pg-badge').textContent;
+    lbTitle.textContent=fig.querySelector('figcaption strong').textContent;
+    lbDesc.textContent=fig.querySelector('.pg-desc').textContent;
+    lbCount.textContent=list.length>1?`${idx+1} / ${list.length}`:'';
+    lbPrev.hidden=lbNext.hidden=list.length<2;
+  }
+  const step=d=>{if(list.length<2)return;idx=(idx+d+list.length)%list.length;render();};
+  view.addEventListener('click',e=>{
+    const b=e.target.closest('.pg-zoom');if(!b)return;
+    const gal=b.closest('.pj-gallery');
+    list=[...gal.querySelectorAll('.pg-item:not([hidden])')].filter(f=>f.querySelector('.pg-zoom'));
+    idx=list.indexOf(b.closest('.pg-item'));lastFocus=b;render();
+    lb.hidden=false;requestAnimationFrame(()=>lb.classList.add('open'));document.body.classList.add('menu-open');lbClose.focus();
+  });
+  function closeLb(){lb.classList.remove('open');document.body.classList.remove('menu-open');setTimeout(()=>{lb.hidden=true;lbBody.innerHTML='';},250);lastFocus&&lastFocus.focus();}
+  lbClose.addEventListener('click',closeLb);lbPrev.addEventListener('click',()=>step(-1));lbNext.addEventListener('click',()=>step(1));
+  lb.addEventListener('click',e=>{if(e.target===lb)closeLb();});
+  addEventListener('keydown',e=>{if(lb.hidden)return;
+    if(e.key==='Escape')closeLb();else if(e.key==='ArrowRight')step(1);else if(e.key==='ArrowLeft')step(-1);
+    else if(e.key==='Tab'){const f=[lbClose,lbPrev,lbNext].filter(x=>!x.hidden),i=f.indexOf(document.activeElement);e.preventDefault();f[(i+(e.shiftKey?-1:1)+f.length)%f.length].focus();}});
+  let sx=null;lb.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});
+  lb.addEventListener('touchend',e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx;sx=null;if(Math.abs(dx)>50)step(dx<0?1:-1);});
 })();
 </script>
 </body>
